@@ -6,7 +6,7 @@ type questionRule = {
   purchased?: string[];
 };
 
-type question = {
+export type question = {
   prompt: string;
   responses: string[];
   type: questionType;

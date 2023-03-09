@@ -1,14 +1,33 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from "react";
+import SessionQuestion from "./components/SessionQuestion";
+import {
+  question,
+  question1,
+  question2,
+  question3,
+} from "./constants/questions";
+import "./App.css";
+
+type session = {
+  questions: question[];
+  lastSeenQuestionIndex: number;
+  response: string[][];
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [session, setSession] = useState<session>({
+    questions: [],
+    lastSeenQuestionIndex: 0,
+    response: [],
+  });
 
   return (
     <div className="App">
-      Placeholder
+      {/* Show session question if state is empty */}
+      {session.questions.length === 0 && <SessionQuestion />}
+      {/* If not use session to figure out which question user is on. */}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
