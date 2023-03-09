@@ -13,23 +13,29 @@ export type question = {
   rules: questionRule;
 };
 
-export const question1: question = {
+const question1: question = {
   prompt: "How did you hear about us?",
   responses: ["Facebook", "Google", "TikTok", "Instagram"],
   type: "radio",
-  rules: { customerType: ["New"] },
+  rules: { customerType: ["new"] },
 };
 
-export const question2: question = {
+const question2: question = {
   prompt: "Do you own any of the following?",
   responses: ["Dumbbells", "Medicine Ball", "Jump Rope", "Stationary Bike"],
   type: "checkbox",
-  rules: { customerType: ["Returning"], location: ["Idaho", "Wisconsin"] },
+  rules: { customerType: ["returning"], location: ["idaho", "wisconsin"] },
 };
 
-export const question3: question = {
+const question3: question = {
   prompt: "What made you decide to buy the Black Jeans today?",
   responses: [],
   type: "freeText",
-  rules: { purchased: ["Black Jeans"] },
+  rules: { purchased: ["blackJeans"] },
 };
+
+export const questionList = [
+    question1,
+    question2,
+    question3,
+]

@@ -1,13 +1,4 @@
-export default function SessionQuestion() {
-  const handleOnSubmit = (event) => {
-    console.log("customerType", event.target.customerType.value);
-    console.log("locaiton", event.target.location.value);
-    console.log("redshirt", event.target.redShirt.checked);
-    console.log("blackjeans", event.target.blackJeans.checked);
-    console.log("bluesweater", event.target.blueSweater.checked);
-    event.preventDefault();
-  };
-
+export default function SessionQuestion({ handleOnSubmit }) {
   return (
     <form onSubmit={(event) => handleOnSubmit(event)}>
       <h1>Customer Setup</h1>
@@ -19,9 +10,9 @@ export default function SessionQuestion() {
       </select>
       <label htmlFor="location">Location</label>
       <select id="location">
-        <option value="someOption">Idaho</option>
-        <option value="otherOption">New York</option>
-        <option value="otherOption">Wisconsin</option>
+        <option value="idaho">Idaho</option>
+        <option value="newYork">New York</option>
+        <option value="wisconsin">Wisconsin</option>
       </select>
       <div>Products Purchased</div>
       <input id="redShirt" type="checkbox" value="redShirt" />

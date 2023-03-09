@@ -1,11 +1,7 @@
 import { useState } from "react";
 import SessionQuestion from "./components/SessionQuestion";
-import {
-  question,
-  question1,
-  question2,
-  question3,
-} from "./constants/questions";
+import { getRelevantQuestionsForUser } from "./service/session";
+import { question, questionList } from "./constants/questions";
 import "./App.css";
 
 type session = {
@@ -14,18 +10,42 @@ type session = {
   response: string[][];
 };
 
+const INITIAL_STATE = {
+  questions: [],
+  lastSeenQuestionIndex: 0,
+  response: [],
+};
+
 function App() {
-  const [session, setSession] = useState<session>({
-    questions: [],
-    lastSeenQuestionIndex: 0,
-    response: [],
-  });
+  const [session, setSession] = useState<session>(INITIAL_STATE);
+
+  const handleSessionQuestionSubmit = (event) => {
+    const customerType = event.target.customerType.value;
+    const location = event.target.location.value;
+    const purchased = [
+      ...(event.target.redShirt.checked ? ["redShirt"] : []),
+      ...(event.target.blackJeans.checked ? ["blackJeans"] : []),
+      ...(event.target.blueSweater.checked ? ["blueSweater"] : []),
+    ];
+
+    const sessionValues = { customerType, location, purchased };
+    const questionsToAdd = getRelevantQuestionsForUser(
+      sessionValues,
+      questionList
+    );
+
+    setSession((prevState) => ({ ...prevState, questions: questionsToAdd }));
+
+    event.preventDefault();
+  };
 
   return (
     <div className="App">
-      {/* Show session question if state is empty */}
-      {session.questions.length === 0 && <SessionQuestion />}
-      {/* If not use session to figure out which question user is on. */}
+      {session.questions.length === 0 ? (
+        <SessionQuestion handleOnSubmit={handleSessionQuestionSubmit} />
+      ) : (
+        <div>{JSON.stringify(session)}</div>
+      )}
     </div>
   );
 }
